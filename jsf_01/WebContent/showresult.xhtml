@@ -5,13 +5,16 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-	<title>Wynik</title>
+	<title>Najtańsze OC na rynku!</title>
 </h:head>
 <h:body>
+<h1>Wyliczyliśmy dla Ciebie składkę</h1>
 	<h:messages />
-	wynik: #{calcBB.result}
+	Wyliczona składka: #{calcBB.result} zł <br /><br />
 	<h:form>
-		<h:commandButton value="Powrót" action="index" />
+	<h:commandButton value="Kup teraz" action="pay" /> <br /><br />
+		<h:commandButton value="Wylicz jeszcze raz" action="index" />
+		
 	</h:form>
 </h:body>
 </html>

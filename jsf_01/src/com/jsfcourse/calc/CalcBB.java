@@ -2,55 +2,100 @@ package com.jsfcourse.calc;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
+//import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 @Named
 @RequestScoped
-//@SessionScoped
 public class CalcBB {
 	private String x;
 	private String y;
+	
+	private String poj;
+	private String rok;
+	private String prawko;
+	
+	// 350   + (100*poj)  + ((2022-rok) * 25)
+	
 	private Double result;
 
 	@Inject
 	FacesContext ctx;
 
-	public String getX() {
-		return x;
+	public String getPoj() {
+		return poj;
 	}
 
-	public void setX(String x) {
-		this.x = x;
+	public void setPoj(String poj) {
+		this.poj = poj;
 	}
 
-	public String getY() {
-		return y;
+	public String getRok() {
+		return rok;
 	}
 
-	public void setY(String y) {
-		this.y = y;
+	public void setRok(String rok) {
+		this.rok = rok;
+	}
+
+	public String getPrawko() {
+		return prawko;
+	}
+
+	public void setPrawko(String prawko) {
+		this.prawko = prawko;
 	}
 
 	public Double getResult() {
 		return result;
 	}
 
-	public void setResult(Double result) {
-		this.result = result;
-	}
-
 	public boolean doTheMath() {
 		try {
-			double x = Double.parseDouble(this.x);
-			double y = Double.parseDouble(this.y);
+			int rok = Integer.parseInt(this.rok);
+			int prawko = Integer.parseInt(this.prawko);
+			double poj = Double.parseDouble(this.poj);
+			int nowYear = 2022;
+			
+			if((rok < 1900 || rok > nowYear) || (prawko < 1900 || prawko > nowYear)) {
+				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Podane dane są nieprawidłowe!", null));
+				return false;
+				
+			} else {
+				double baza = 400 + (100*poj);
+				double baza_2 = 10 * (nowYear - rok);
+				double baza_3 = 4;
+				
+				if(nowYear - prawko > 6) {
+					baza_3 *= -10;
+				}
+				else if(nowYear - prawko > 5) {
+					baza_3 *= -5;
+				}
+				else if(nowYear - prawko > 4) {
+					baza_3 *= 0;
+				}
+				else if(nowYear - prawko > 3) {
+					baza_3 *= 10;
+				}
+				else if(nowYear - prawko > 2) {
+					baza_3 *= 15;
+				}
+				else if(nowYear - prawko >= 0) {
+					baza_3 *= 30;
+				}
+				 
+				result = (double) ( baza + baza_2 + baza_3 );
+				
+				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Operacja wykonana poprawnie", null));
+				return true;
+			}
+			
+			
 
-			result = x + y;
-
-			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Operacja wykonana poprawnie", null));
-			return true;
 		} catch (Exception e) {
 			ctx.addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd podczas przetwarzania parametrów", null));
@@ -74,6 +119,7 @@ public class CalcBB {
 		return null;
 	}
 
+	
 	public String info() {
 		return "info";
 	}
