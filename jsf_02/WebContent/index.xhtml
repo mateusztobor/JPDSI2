@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/templates/page-template.xhtml">
+
+	<ui:define name="pageContent">
+
+		<p:panel header="Oblicz składkę OC">
+
+			<p:messages id="msg" />
+
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="5" styleClass="bottom-space">
+					<p:outputLabel for="lab_poj" value="Pojemność silnika: " />
+					<p:spinner id="lab_poj" stepFactor="0.1" min="0.3" max="10.0" value="#{calcBB.poj}"/>
+					
+					<p:outputLabel for="lab_rok" value="Rok produkcji samochodu:" />
+					<p:spinner id="lab_rok" stepFactor="1" min="1700" max="2022" value="#{calcBB.rok}"/>
+					
+					<p:outputLabel for="lab_prawko" value="Rok uzyskania prawa jazdy:"/>
+					<p:spinner id="lab_prawko" stepFactor="1" min="1950" max="2022" value="#{calcBB.prawko}"/>
+					
+					<p:commandButton value="Oblicz składkę" action="#{calcBB.calc()}" update=":#{p:component('msg')}" />
+				</h:panelGrid>
+			</h:form>
+
+		</p:panel>
+
+	</ui:define>
+
+</ui:composition>
+</html>
