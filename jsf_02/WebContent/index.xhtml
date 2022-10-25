@@ -16,14 +16,21 @@
 
 			<h:form>
 				<h:panelGrid columns="2" cellpadding="5" styleClass="bottom-space">
-					<p:outputLabel for="lab_poj" value="Pojemność silnika: " />
-					<p:spinner id="lab_poj" stepFactor="0.1" min="0.3" max="10.0" value="#{calcBB.poj}"/>
+					<p:message for="lab_poj" />
+					<p:message for="mail" />
+					
+					<p:outputLabel for="lab_poj" value="Pojemność silnika: "/>
+					<p:inputNumber id="lab_poj" required="true" value="#{calcBB.poj}" minValue="0.5" maxValue="10.0" decimalPlaces="1" symbol=" l" symbolPosition="s" requiredMessage="Bez podania pojemności silnika nie możemy wyliczyć składki." />
+					
 					
 					<p:outputLabel for="lab_rok" value="Rok produkcji samochodu:" />
-					<p:spinner id="lab_rok" stepFactor="1" min="1700" max="2022" value="#{calcBB.rok}"/>
+					<p:spinner id="lab_rok" required="true" stepFactor="1" min="1700" max="2022" value="#{calcBB.rok}"/>
 					
 					<p:outputLabel for="lab_prawko" value="Rok uzyskania prawa jazdy:"/>
-					<p:spinner id="lab_prawko" stepFactor="1" min="1950" max="2022" value="#{calcBB.prawko}"/>
+					<p:spinner id="lab_prawko" required="true" stepFactor="1" min="1950" max="2022" value="#{calcBB.prawko}"/>
+					
+					<p:outputLabel for="@next" value="Numer kontaktowy:" />
+					<p:inputMask id="mail" value="#{calcBB.mail}" mask="+99 999 999 999" validateMask="true" required="true" requiredMessage="Podanie numeru kontaktowego jest wymagane, aby możliwe było przetworzenie oferty." />
 					
 					<p:commandButton value="Oblicz składkę" action="#{calcBB.calc()}" update=":#{p:component('msg')}" />
 				</h:panelGrid>

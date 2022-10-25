@@ -19,8 +19,11 @@
 					rendered="#{calcBB.result != null}" />
 			</div>
 			<h:form>
-    			<p:commandLink value="Kup teraz" action="buy" /> |
-				<h:commandButton value="Powrót" action="index" />
+    			<p:commandLink value="Kup teraz" action="buy" /> | 
+				<h:commandLink value="Powrót na stronę główną" action="index" />
+				<hr/>
+				<h:outputText value="Oferta zostanie wysłana na numer: #{calcBB.mail}"
+					rendered="#{calcBB.mail != null}" />
 			</h:form>
 		</p:panel>
 

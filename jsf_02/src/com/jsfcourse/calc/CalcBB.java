@@ -9,9 +9,7 @@ import javax.inject.Named;
 @Named
 @RequestScoped
 public class CalcBB {
-	private String poj, rok, prawko;
-	private String x;
-	private String y;
+	private String poj, rok, prawko, mail;
 	private Double result;
 
 	@Inject
@@ -19,21 +17,14 @@ public class CalcBB {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
 	public String getPoj() {
 		return poj;
 	}
@@ -58,23 +49,6 @@ public class CalcBB {
 		this.prawko = prawko;
 	}
 	
-	
-
-	public String getX() {
-		return x;
-	}
-
-	public void setX(String x) {
-		this.x = x;
-	}
-
-	public String getY() {
-		return y;
-	}
-
-	public void setY(String y) {
-		this.y = y;
-	}
 
 	public Double getResult() {
 		return result;
