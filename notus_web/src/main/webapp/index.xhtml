@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+        <h:head>
+        	<title>Notuś</title>
+        	<link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/img/favicon.png"/>
+			<link href="./css/main.css" rel="stylesheet" type="text/css" />
+        </h:head>
+        
+        <h:body>
+        
+			<div class="ui-g" id="nav">
+			    <div class="ui-g-8 ui-g-nopad">
+			        <div class="ui-g">
+			            <div class="ui-g-11 nav-part">
+			            	<div class="nav-brand">N<h:graphicImage value = "/img/favicon.png"/>TUŚ</div>
+			            </div>
+			            <div class="ui-g-1 nav-part">searchbox</div>
+			        </div>
+			    </div>
+			</div>
+			<p:link href="http://www.primefaces.org" value="Navigate"/>
+			
+			<!--  
+			<p:panelGrid columns="2">
+			    <f:facet name="header">
+			        Basic PanelGrid
+			    </f:facet>
+			    <h:outputLabel for="firstname" value="Firstname: *" />
+			    <p:inputText id="firstname" value="#{bean.firstname}" label="Firstname" />
+			    <h:outputLabel for="surname" value="Surname: *" />
+			    <p:inputText id="surname" value="#{bean.surname}" label="Surname"/>
+			    <f:facet name="footer">
+			        <p:commandButton type="button" value="Save" icon="ui-icon-check" />
+			    </f:facet>
+			</p:panelGrid>-->
+            
+            
+            
+            <p:clock pattern="HH:mm:ss dd.MM.yyyy" />
+            
+            
+            <p:panel id="pnl" header="Draggable Panel">
+    			<h:outputText value="This is actually a regular panel" />
+			</p:panel>
+			<p:draggable for="pnl"/>
+        </h:body>
+    </f:view>
+</html>
