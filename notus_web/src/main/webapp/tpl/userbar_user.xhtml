@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+	
+	<div id="header-nav">
+		<p:link href="#" value="Jestes zalogowany jako"/> <ui:insert name="username"></ui:insert>
+	</div>
+	<p:commandButton icon="pi pi-bars" type="button" id="navButton" onclick="PF('nav_sidebar').show()" styleClass="mr-2" />
+	<p:sidebar widgetVar="nav_sidebar" position="right">
+		<h3>Will be23323</h3>
+		<ui:insert name="userbar_admin"></ui:insert>
+	</p:sidebar>
+        
+</ui:composition>
