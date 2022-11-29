@@ -1,4 +1,4 @@
-package notus_e;
+package com.notus.jsf.e;
 
 import java.io.Serializable;
 import javax.persistence.*;

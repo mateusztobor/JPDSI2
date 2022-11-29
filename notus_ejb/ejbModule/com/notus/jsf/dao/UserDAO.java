@@ -1,15 +1,20 @@
-package notus_dao;
+package com.notus.jsf.dao;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import notus_e.User;
+import com.notus.jsf.e.User;
 
 @Stateless
 public class UserDAO {
 	@PersistenceContext
 	EntityManager em;
+	
+	public User findUser(String mail, String password) {
+		
+		return null;
+	}
 	
 	public void add(User user) {
 		em.persist(user);

@@ -1,10 +1,10 @@
-package notus_dao;
+package com.notus.jsf.dao;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import notus_e.Post;
+import com.notus.jsf.e.Post;
 
 @Stateless
 public class PostDAO {

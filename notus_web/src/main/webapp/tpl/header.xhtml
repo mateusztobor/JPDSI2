@@ -6,7 +6,9 @@
       xmlns:p="http://primefaces.org/ui">
 	
 	<div id="header">
-		<div id="header-brand">N<h:graphicImage value="/img/favicon.png"/>TUŚ</div>
+		<p:link href="http://localhost:8080" id="header-brand">
+			N<h:graphicImage value="#{request.contextPath}/resources/img/favicon.png"/>TUŚ
+		</p:link>
 		<ui:insert name="userbar"></ui:insert>
 	</div>
         
