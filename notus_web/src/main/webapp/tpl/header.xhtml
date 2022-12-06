@@ -3,13 +3,19 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core">
 	
 	<div id="header">
 		<p:link href="http://localhost:8080" id="header-brand">
 			N<h:graphicImage value="#{request.contextPath}/resources/img/favicon.png"/>TUŚ
 		</p:link>
-		<ui:insert name="userbar"></ui:insert>
+	    <c:if test="#{empty remoteClient.details.type}">
+	        <ui:include src="/tpl/userbar_guest.xhtml" />
+	    </c:if>
+	    <c:if test="#{not empty remoteClient.details.type}">
+	        <ui:include src="/tpl/userbar_user.xhtml" />
+	    </c:if>
 	</div>
         
 </ui:composition>

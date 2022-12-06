@@ -3,15 +3,23 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core">
 	
 	<div id="header-nav">
-		<p:link href="#" value="Jestes zalogowany jako"/> <ui:insert name="username"></ui:insert>
+		<h:form>
+	<p:menuButton styleClass="userbtn" icon="pi pi-user" iconPos="left" value="#{remoteClient.details.nick}">
+		<p:menuitem value="Ustawienia konta" icon="pi pi-user-edit" url="/user/account.xhtml" />
+		<p:menuitem value="Wyloguj" icon="pi pi-sign-out" action="#{loginBB.doLogout()}" />
+	</p:menuButton>
+	</h:form>
 	</div>
 	<p:commandButton icon="pi pi-bars" type="button" id="navButton" onclick="PF('nav_sidebar').show()" styleClass="mr-2" />
 	<p:sidebar widgetVar="nav_sidebar" position="right">
-		<h3>Will be23323</h3>
-		<ui:insert name="userbar_admin"></ui:insert>
+		<h3>Nav</h3>
+		<c:if test="#{remoteClient.details.type eq 2}">
+			<ui:include src="/tpl/userbar_admin.xhtml" />
+		</c:if>
 	</p:sidebar>
         
 </ui:composition>

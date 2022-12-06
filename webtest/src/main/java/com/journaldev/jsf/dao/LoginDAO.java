@@ -12,16 +12,18 @@ public class LoginDAO {
 	public static boolean validate(String user, String password) {
 		Connection con = null;
 		PreparedStatement ps = null;
+		
 
 		try {
 			con = DataConnect.getConnection();
-			ps = con.prepareStatement("Select email, password from users where email = ? and password = ?");
+			ps = con.prepareStatement("Select uname, password from Users where uname = ? and password = ?");
 			ps.setString(1, user);
 			ps.setString(2, password);
 
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
+				//result found, means valid inputs
 				return true;
 			}
 		} catch (SQLException ex) {
@@ -33,3 +35,36 @@ public class LoginDAO {
 		return false;
 	}
 }
+
+//public class LoginDAO {
+//
+//	public static boolean validate(String user, String password) {
+//		Connection connection = null;
+//		Statement statement = null;
+//		ResultSet resultSet = null;
+//
+//		try {
+//			
+//			connection = DataConnect.getConnection();
+//			statement = connection.createStatement();
+//			resultSet = statement.executeQuery("select * from tbl_employees");
+//			while(resultSet.next()) {
+//				int id = rs.getInt("id");
+//				
+//				//String name = rs.getString("name");
+//				//String email = rs.getString("email");
+//				//String department = rs.getString("department");
+//				//Employee employee = new Employee(id, name, department, email);
+//				//employees.add(employee);
+//			}
+//			return employees;
+//		}
+//		catch(Exception ex) {
+//			System.out.println("Błąd: " + ex.getMessage());
+//			return false;
+//		} finally {
+//			DataConnect.close(con);
+//		}
+//
+//	}
+//}

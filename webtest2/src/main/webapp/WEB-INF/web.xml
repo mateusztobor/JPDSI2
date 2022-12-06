@@ -12,16 +12,17 @@
 		<filter-class>javax.faces.simplesecurity.SecurityFilter</filter-class>
 		<init-param>
 			<param-name>noPermitionPage</param-name>
-			<param-value>/unpublic/noPermitionPage.xhtml</param-value>
+			<param-value>/pages/login.xhtml</param-value>
 		</init-param>
 		<init-param>
 			<param-name>permissions</param-name>
 			<param-value>
 /javax.faces.resource : PUBLIC;
 /public : PUBLIC;
-/resources : PUBLIC;
-/admin : admin;
-/user : user, admin;
+/pages : admin;
+/pages/calc : user, manager, admin;
+/pages/admin : admin;
+/pages/manager : admin, manager;
 			</param-value>
 		</init-param>
 		<init-param>
@@ -58,10 +59,10 @@
 		<mime-type>image/x-icon</mime-type>
 	</mime-mapping>
 	<welcome-file-list>
-		<welcome-file>/public/index.xhtml</welcome-file>
+		<welcome-file>/pages/calc/calc.xhtml</welcome-file>
 	</welcome-file-list>
 	<error-page>
 		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
-		<location>/unpublic/viewExpired.xhtml</location>
+		<location>/pages/viewExpired.xhtml</location>
 	</error-page>
 </web-app>

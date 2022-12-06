@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core">
+      
+	<ui:composition template="/tpl/main.xhtml">
+			<ui:define name="title">Błąd 404</ui:define>
+			
+			<ui:define name="cont">
+				<div id="box">
+					<ui:include src="/tpl/404.xhtml" />
+				</div>
+			</ui:define>
+	</ui:composition>
+
+</html>
