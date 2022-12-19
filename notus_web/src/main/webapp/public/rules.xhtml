@@ -4,23 +4,20 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://java.sun.com/jstl/core">
+      xmlns:p="http://primefaces.org/ui">
       
 	<ui:composition template="/tpl/main.xhtml">
-		<ui:define name="title">Index</ui:define>
+		<ui:define name="title">Register</ui:define>
 		
 		<ui:define name="cont">
-		
-			<c:if test="#{not empty remoteClient.details.type}">
-				<c:if test="#{not empty param['r']}">
-					 <ui:include src="/tpl/hello.xhtml" />
-				</c:if>
-			</c:if>
-			
 			<div id="box">
-
-				Index
+				Rules
+				
+				<h:form>
+					<h:outputLabel value='#{md5.getPassword("admin")}' />
+					<Br/>
+					<h:outputLabel value='#{conf.get("app_title")}' />
+				</h:form>
 			</div>
 		</ui:define>
 	</ui:composition>

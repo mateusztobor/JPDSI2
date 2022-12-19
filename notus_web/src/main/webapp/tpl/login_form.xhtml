@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+	
+	<p:growl id="login_growl" showDetail="true" showSummary="false" />
+	<p:dialog header="Logowanie" widgetVar="guest_login_box" minHeight="40" width="350" showEffect="fade" modal="true">
+		<h:form>
+			<div class="mb-20 mt-10 text-center">
+				<span class="ui-float-label ui-input-icon-right">
+					<i class="pi pi-at" />
+					<p:inputText id="email" value="#{loginBB.email}" required="true" requiredMessage="Wprowadź adres e-mail."/>
+					<p:outputLabel for="@previous" value="Adres email"/>
+				</span>
+			</div>
+			
+			<div class="mb-20 text-center">
+				<span class="ui-float-label ui-input-icon-right">
+					<i class="pi pi-lock" />
+					<p:password id="password" value="#{loginBB.password}" required="true" requiredMessage="Wprowadź hasło."/>
+					<p:outputLabel for="@previous" value="Hasło"/>
+				</span>
+			</div>
+			
+			<div class="text-center">
+				<p:commandButton value="Zaloguj" action="#{loginBB.doLogin()}" update="login_growl" styleClass="ui-button-outlined ui-button-danger" icon="pi pi-check" iconPos="left" />
+			</div>
+		</h:form>
+	</p:dialog>
+
+</ui:composition>

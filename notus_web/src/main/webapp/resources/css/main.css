@@ -76,22 +76,23 @@ body {
 			background: rgba(255,255,255,0.4);
 		}
 
-	
-	#header #navButton {
-		background: rgba(0,0,0,0.25);
-		border: none;
-		position: absolute;
-		right: 12px;
-		top: 10px;
-	}
-	
-		#header #navButton:hover {
-			background: rgba(0,0,0,0.5);
+		#header #header-navButton-form {
+			position: absolute !important;
+			right: 12px;
+			top: 0px;
 		}
+	
+			#header #header-navButton-form .navButton {
+				background: rgba(0,0,0,0.25) !important;
+				border: none !important;
 		
-		#header #navButton:focus {
-			outline: none;
-		}
+			}
+	
+				#header #header-navButton-form .navButton:hover {
+					background: rgba(0,0,0,0.5) !important;
+				}
+		
+		
 	
 
 	
@@ -116,11 +117,24 @@ body {
 	}
 	
 		#content #box h1 {
-			margin: 0 0 10px 0;
+			margin: 0 0 25px 0;
 			font-weight: normal;
 		}
-	
-	
+
+.text-center {text-align:center;}
+.block {display:block;}
+
+.mt-10 {margin-top:10px;}
+.mb-10 {margin-bottom:10px;}
+
+.mt-20 {margin-top:20px;}
+.mb-20 {margin-bottom:20px;}
+
+.pb-10 {padding-bottom: 10px;}
+
+.smalltxt {
+	font-size:11px;
+}
 	
 *::-webkit-scrollbar-track {
 	box-shadow: 0 0 10px #000;

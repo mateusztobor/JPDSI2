@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+	
+	<p:growl id="register_growl" showDetail="true" showSummary="false" sticky="true" />
+	<p:dialog header="Tworzenie konta" widgetVar="guest_register_box" minHeight="40" width="350" showEffect="fade" modal="true">
+		<h:form>
+			<div class="mb-20 mt-10 text-center">
+				<span class="ui-float-label ui-input-icon-right">
+					<i class="pi pi-user" />
+					<p:inputText
+						id="r_nick"
+						value="#{registerBB.nick}"
+						required="true"
+						requiredMessage="Wprowadź nick."
+						maxlength="15"/>
+					<p:outputLabel for="@previous" value="Twój Nick"/>
+				</span>
+			</div>
+			
+			<div class="mb-20 text-center">
+				<span class="ui-float-label ui-input-icon-right">
+					<i class="pi pi-at" />
+					<p:inputText
+						id="r_email"
+						value="#{registerBB.email}"
+						required="true"
+						requiredMessage="Wprowadź adres e-mail."
+						validatorMessage="Podany adres e-mail jest błędny.">
+						<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					</p:inputText>
+					<p:outputLabel for="@previous" value="Twój adres Email"/>
+				</span>
+			</div>
+			
+			<div class="text-center">
+				<span class="ui-float-label ui-input-icon-right">
+					<i class="pi pi-lock" />
+					<p:password 
+						id="r_password"
+						value="#{registerBB.password}" 
+					
+						feedback="true"
+						promptLabel="Wprowadź hasło" weakLabel="Słabe hasło"
+						goodLabel="Dobre hasło" strongLabel="Silne hasło"
+						
+						match="r_password2"
+						validatorMessage="Wprowadzone hasła różnią się."
+						
+						required="true"
+						requiredMessage="Wprowadź hasło."/>
+					<p:outputLabel for="@previous" value="Wprowadź hasło"/>
+				</span>
+			</div>
+			<div class="mb-20 text-center smalltxt">
+				Hasło musi mieć min. 6 znaków<br />oraz zawierać cyfrę i znak specjalny.
+			</div>
+			
+			<div class="mt-10 mb-20 text-center">
+				<span class="ui-float-label ui-input-icon-right">
+					<i class="pi pi-lock" />
+					<p:password
+						id="r_password2"
+						value="#{registerBB.password}"
+					
+						required="true"
+						requiredMessage="Powtórz wprowadzone hasło."/>
+					<p:outputLabel for="@previous" value="Powtórz hasło"/>
+				</span>
+			</div>
+			
+			<div class="mb-10 text-center smalltxt">
+				Tworząc konto akceptujesz regulamin aplikacji.
+			</div>
+			<div class="text-center">
+				<p:commandButton value="Stwórz konto i zaloguj mnie" action="#{registerBB.doRegister()}" update="register_growl" styleClass="ui-button-outlined ui-button-success" icon="pi pi-plus" iconPos="left" />
+			</div>
+		</h:form>
+	</p:dialog>
+
+</ui:composition>

@@ -1,5 +1,6 @@
 package com.notus.jsf.login;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import com.notus.jsf.dao.UserDAO;
 import com.notus.jsf.e.User;
+import com.notus.jsf.etc.Md5;
+import com.notus.jsf.etc.Mess;
 
 @Named
 @RequestScoped
@@ -20,38 +23,41 @@ public class LoginBB {
 	private static final String PAGE_MAIN = "/public/index.xhtml?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
-	private String login;
-	private String pass;
+	private String email;
+	private String password;
 
-	public String getLogin() {
-		return login;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getPass() {
-		return pass;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setPassword(String pass) {
+		this.password = pass;
 	}
 
 	@Inject
 	UserDAO userDAO;
-
-	public String doLogin() {
+	
+	@Inject
+	Md5 hash;
+	
+	public String doLogin() throws NoSuchAlgorithmException {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-
+		
+		
 		// 1. verify login and password - get User from "database"
-		User user = userDAO.getUserFromDatabase(login, pass);
+		User user = userDAO.getUserFromDatabase(email, hash.getPassword(password));
 
 		// 2. if bad login or password - stay with error info
 		if (user == null) {
-			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Niepoprawny login lub hasło", null));
+			Mess.add(FacesMessage.SEVERITY_WARN, "Błąd logowania", "Podana kombinacja adresu email i hasła jest nieprawidłowa.");
 			return PAGE_STAY_AT_THE_SAME;
 		}
 
@@ -71,7 +77,7 @@ public class LoginBB {
 		//store RemoteClient with request info in session (needed for SecurityFilter)
 		HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
 		client.store(request);
-
+		
 		// and enter the system (now SecurityFilter will pass the request)
 		return PAGE_MAIN;
 	}

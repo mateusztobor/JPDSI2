@@ -8,13 +8,18 @@
 	
 	<div id="header-nav">
 		<h:form>
-	<p:menuButton styleClass="userbtn" icon="pi pi-user" iconPos="left" value="#{remoteClient.details.nick}">
-		<p:menuitem value="Ustawienia konta" icon="pi pi-user-edit" url="/user/account.xhtml" />
-		<p:menuitem value="Wyloguj" icon="pi pi-sign-out" action="#{loginBB.doLogout()}" />
-	</p:menuButton>
-	</h:form>
+			<p:menuButton styleClass="userbtn" icon="pi pi-user" iconPos="left" value="#{remoteClient.details.nick}">
+				<p:menuitem value="Ustawienia konta" icon="pi pi-user-edit" url="/user/account.xhtml" />
+				<p:menuitem value="Wyloguj" icon="pi pi-sign-out" action="#{loginBB.doLogout()}" />
+			</p:menuButton>
+		</h:form>
+		
+		<h:form id="header-navButton-form">
+			<p:commandButton icon="pi pi-bars" type="button" onclick="PF('nav_sidebar').show()" styleClass="navButton" />
+		</h:form>
+		
+		
 	</div>
-	<p:commandButton icon="pi pi-bars" type="button" id="navButton" onclick="PF('nav_sidebar').show()" styleClass="mr-2" />
 	<p:sidebar widgetVar="nav_sidebar" position="right">
 		<h3>Nav</h3>
 		<c:if test="#{remoteClient.details.type eq 2}">

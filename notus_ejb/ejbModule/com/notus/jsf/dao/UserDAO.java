@@ -7,13 +7,18 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
+
 import com.notus.jsf.e.User;
 
 @Named
 @RequestScoped
+@Transactional(rollbackOn = Exception.class)
 public class UserDAO {
 	@PersistenceContext
 	protected EntityManager em;
+	
+	
 	public User getUserFromDatabase(String email, String password) {
 		User u = null;
 
@@ -33,6 +38,45 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		return u;
+	}
+	
+	public void create(User u) {
+	    em.persist(u); //em.merge(u); for updates
+	}
+	
+	public Boolean checkNickUnique(String nick) {
+		User u = null;
+
+		Query query = em.createQuery("select u FROM User u where u.nick=:nick");
+		query.setParameter("nick", nick);
+		
+		try {
+			User user = (User) query.getSingleResult();
+			u = new User();
+			u.setId(user.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(u == null) return true;
+		return false;
+	}
+	
+	public Boolean checkEmailUnique(String email) {
+		User u = null;
+
+		Query query = em.createQuery("select u FROM User u where u.email=:email");
+		query.setParameter("email", email);
+		
+		try {
+			User user = (User) query.getSingleResult();
+			u = new User();
+			u.setId(user.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(u == null) return true;
+		return false;
 	}
 	
 	public List<String> getUserRolesFromDatabase(User user) {
