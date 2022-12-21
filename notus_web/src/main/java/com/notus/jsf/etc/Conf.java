@@ -16,7 +16,9 @@ public class Conf {
 	ConfigDAO configDAO;
 	public String get(String name) throws NoSuchAlgorithmException {
 		Config config = configDAO.get(name);
-		if(config != null) return config.getValue();
+		if(config != null)
+			return config.getValue();
 		return "";
 	}
+	
 }

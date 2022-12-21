@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+	
+	
+	<div class="box mb-20">
+		<h1>Twoje konto</h1>
+		<div style="float:right;margin-top: -70px;">
+			<p:avatar icon="pi pi-user" styleClass="mr-2" size="xlarge" style="background-color:brown; color:red" shape="circle" />
+		</div>
+		
+		<p:card style="margin: 0 auto 1.5em auto; width: 100%;" class="account_details">
+			<f:facet name="title"><h:outputLabel value="#{remoteClient.details.nick}" /></f:facet>
+			<f:facet name="subtitle">Nick</f:facet>
+		</p:card>
+		<p:card style="margin: 0 auto; width: 100%;" class="account_details">
+			<f:facet name="title"><h:outputLabel value="#{remoteClient.details.nick}" /></f:facet>
+			<f:facet name="subtitle">Adres email</f:facet>
+		</p:card>
+	</div>
+	
+	<div class="box">
+		<h1>Zmiana hasła</h1>
+		<h:form>
+			<div class="mb-20 mt-10">
+				<p:outputLabel for="@next" styleClass="block" value="Aktualne hasło"/>
+				<span class="ui-input-icon-left">
+					<i class="pi pi-lock" />
+					<p:password id="o_password" value="#{accountBB.o_password}" required="true" requiredMessage="Wprowadź aktualne hasło."/>
+				</span>
+			</div>
+			
+			<div class="mb-20 mt-10">
+				<p:outputLabel for="@next" styleClass="block" value="Nowe hasło"/>
+				<span class="ui-input-icon-left">
+					<i class="pi pi-hashtag" />
+					<p:password id="n_password" value="#{accountBB.n_password}" required="true" requiredMessage="Wprowadź nowe hasło." match="n_password2" validatorMessage="Wprowadzone nowe hasła różnią się."/>
+				</span>
+			</div>
+			
+			<div class="mb-20 mt-10">
+				<p:outputLabel for="@next" styleClass="block" value="Potwórz nowe hasło"/>
+				<span class="ui-input-icon-left">
+					<i class="pi pi-hashtag" />
+					<p:password id="n_password2" value="#{accountBB.n_password2}" required="true" requiredMessage="Wprowadź powtórnie nowe hasło."/>
+				</span>
+			</div>
+			
+
+			
+			<div>
+				<p:commandButton value="Zmień hasło" action="#{accountBB.chpass()}" update="growl" styleClass="ui-button-outlined ui-button-secondary" icon="pi pi-check" iconPos="left" />
+			</div>
+		</h:form>
+	</div>
+
+</ui:composition>

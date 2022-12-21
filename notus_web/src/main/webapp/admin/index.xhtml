@@ -10,9 +10,15 @@
 		<ui:define name="title">Admin</ui:define>
 		
 		<ui:define name="cont">
-			<div id="box">
-				Admin
-			</div>
+			
+<div class="card">
+    <h:form>
+		<p:focus for="terminal"/>
+		<p:terminal prompt="Notuś@" id="terminal" widgetVar="term" commandHandler="#{adminControlPanel.handleCommand}" welcomeMessage='Wpisz "help", aby uzyskać listę obsługiwanych poleceń.'/>
+		<p:commandButton type="button" value="Clear" icon="pi pi-trash" onclick="PF('term').clear()" styleClass="mt-3" />
+	</h:form>
+</div>
+			
 		</ui:define>
 	</ui:composition>
 

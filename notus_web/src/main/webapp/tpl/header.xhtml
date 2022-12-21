@@ -6,12 +6,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jstl/core">
 	
-	<!-- 
 	<p:growl id="growl" showDetail="true" showSummary="false" />
-	<p:growl id="growl_ATT" showDetail="true" showSummary="false" sticky="true" />
-	<p:growl id="growl_Full" showDetail="true" showSummary="true" />
-	<p:growl id="growl_Full_ATT" showDetail="true" showSummary="true" sticky="true" />
-	-->
 	
     <c:if test="#{empty remoteClient.details.type}">
         <ui:include src="/tpl/login_form.xhtml" />

@@ -23,8 +23,8 @@ public class ConfigDAO {
 		em.remove(em.merge(config));
 	}
 	
-	public Config get2(Object id) {
-		return em.find(Config.class, id);
+	public Config get2(Object name) {
+		return em.find(Config.class, name);
 	}
 	
 	public Config get(String name) {

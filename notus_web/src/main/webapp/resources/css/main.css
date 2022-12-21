@@ -109,17 +109,24 @@ body {
 		}
 	}
 
-	#content #box {
+	#content #box,
+	#content .box {
 		background: rgba(255,255,255,0.8);
 		padding: 20px;
 		border-radius: 6px;
 		box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 	}
 	
-		#content #box h1 {
+		#content #box h1,
+		#content .box h1 {
 			margin: 0 0 25px 0;
 			font-weight: normal;
 		}
+		
+		
+		
+		
+.account_details .ui-card-content {display:none;}
 
 .text-center {text-align:center;}
 .block {display:block;}

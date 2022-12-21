@@ -7,12 +7,10 @@
       xmlns:p="http://primefaces.org/ui">
       
 	<ui:composition template="/tpl/main.xhtml">
-		<ui:define name="title">Account</ui:define>
+		<ui:define name="title">Ustawienia konta</ui:define>
 		
 		<ui:define name="cont">
-			<div id="box">
-				Account
-			</div>
+			<ui:include src="/tpl/account_form.xhtml" />
 		</ui:define>
 	</ui:composition>
 

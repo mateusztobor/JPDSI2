@@ -18,6 +18,13 @@ public class UserDAO {
 	@PersistenceContext
 	protected EntityManager em;
 	
+	public User update(User user) {
+		return em.merge(user);
+	}
+	
+	public User get(User id) {
+		return em.find(User.class, id);
+	}
 	
 	public User getUserFromDatabase(String email, String password) {
 		User u = null;

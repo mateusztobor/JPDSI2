@@ -5,7 +5,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 	
-	<p:growl id="register_growl" showDetail="true" showSummary="false" sticky="true" />
 	<p:dialog header="Tworzenie konta" widgetVar="guest_register_box" minHeight="40" width="350" showEffect="fade" modal="true">
 		<h:form>
 			<div class="mb-20 mt-10 text-center">
@@ -76,7 +75,7 @@
 				Tworząc konto akceptujesz regulamin aplikacji.
 			</div>
 			<div class="text-center">
-				<p:commandButton value="Stwórz konto i zaloguj mnie" action="#{registerBB.doRegister()}" update="register_growl" styleClass="ui-button-outlined ui-button-success" icon="pi pi-plus" iconPos="left" />
+				<p:commandButton value="Stwórz konto i zaloguj mnie" action="#{registerBB.doRegister()}" update="growl" styleClass="ui-button-outlined ui-button-success" icon="pi pi-plus" iconPos="left" />
 			</div>
 		</h:form>
 	</p:dialog>

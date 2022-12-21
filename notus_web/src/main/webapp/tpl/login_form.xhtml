@@ -5,7 +5,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 	
-	<p:growl id="login_growl" showDetail="true" showSummary="false" />
 	<p:dialog header="Logowanie" widgetVar="guest_login_box" minHeight="40" width="350" showEffect="fade" modal="true">
 		<h:form>
 			<div class="mb-20 mt-10 text-center">
@@ -25,7 +24,7 @@
 			</div>
 			
 			<div class="text-center">
-				<p:commandButton value="Zaloguj" action="#{loginBB.doLogin()}" update="login_growl" styleClass="ui-button-outlined ui-button-danger" icon="pi pi-check" iconPos="left" />
+				<p:commandButton value="Zaloguj" action="#{loginBB.doLogin()}" update="growl" styleClass="ui-button-outlined ui-button-danger" icon="pi pi-check" iconPos="left" />
 			</div>
 		</h:form>
 	</p:dialog>
