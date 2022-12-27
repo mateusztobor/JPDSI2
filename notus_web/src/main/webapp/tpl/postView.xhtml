@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core">
+      
+      
+	<h:form>
+	<h2 class="text-center"><h:outputLabel value="#{viewPostBB.title}" /></h2>
+	<div class="ui-g text-center">
+
+		<div class="ui-g-3" style="padding:0;">
+			<i class="pi pi-eye mr-5"></i> <h:outputLabel value="#{viewPostBB.shared}" />
+		</div>
+		<div class="ui-g-3" style="margin:0; padding:0;">
+			<i class="pi pi-clock mr-5"></i>
+			<h:outputText value="#{viewPostBB.date}" id="track_clock" >
+			    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+			</h:outputText>
+			<p:tooltip for="track_clock" value="Data ostatniej modyfikacji" trackMouse="false"/>
+		</div>
+		<div class="ui-g-3" style="padding:0;">
+			<i class="pi pi-folder mr-5"></i> <h:outputLabel value="#{viewPostBB.category_name}" />
+		</div>
+		<div class="ui-g-3" style="margin:0; padding:0;">
+			<i class="pi pi-user-plus mr-5"></i> <h:outputLabel id="track_author" value="#{viewPostBB.author_name}" />
+			<p:tooltip for="track_author" value="Nazwa twórcy notatki" trackMouse="false"/>
+		</div>
+	</div>
+
+
+	
+	
+
+	
+	<p:inputTextarea value="#{viewPostBB.content}" styleClass="notes" autoResize="false" readonly="true"/>
+	
+	<div class="text-center">
+		<p:button href="/public/index.xhtml" value="Utwórz nową notatkę" styleClass="rounded-button ui-button-danger" style="margin-right:15px" icon="pi pi-plus" />
+		<p:commandButton type="button" onclick="copyUrl()" value="Skopiuj adres do schowka" styleClass="btncopy rounded-button ui-button-danger" icon="pi pi-copy" />
+		<c:if test="#{viewPostBB.author.id eq remoteClient.details.id and viewPostBB.author ne null or remoteClient.details.type eq 2}">
+			<p:button href="/public/index.xhtml" value="Edytuj notatkę" styleClass="rounded-button ui-button-danger" style="margin-left:15px" icon="pi pi-pencil" />
+		</c:if>
+	</div>
+	
+	<script>
+		function copyUrl() {
+			$( ".btncopy" )
+			.removeClass("ui-button-danger")
+			.addClass("ui-button-success")
+			
+			$(".btncopy .ui-button-text").text("Skopiowano do schowka");
+			
+			if (!window.getSelection) {
+				alert('Please copy the URL from the location bar.');
+				return;
+			}
+			
+			const dummy = document.createElement('p');
+			dummy.textContent = window.location.href;
+			document.body.appendChild(dummy);
+	
+			const range = document.createRange();
+			range.setStartBefore(dummy);
+			range.setEndAfter(dummy);
+	
+			const selection = window.getSelection();
+			selection.removeAllRanges();
+			selection.addRange(range);
+	
+			document.execCommand('copy');
+			document.body.removeChild(dummy);
+		}
+	</script>
+
+	
+	</h:form>
+</ui:composition>

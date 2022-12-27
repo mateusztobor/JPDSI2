@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core">
+      
+	<ui:composition template="/tpl/main.xhtml">
+	
+		
+		<ui:define name="title">Notatka: <h:outputText value="#{viewPostBB.title_show}" /></ui:define>
+		
+		<ui:define name="cont">
+			<div id="box">
+				<c:choose>
+					<c:when test="${viewPostBB.PostExists() eq true}">
+					
+						<c:choose>
+							<c:when test="${viewPostBB.author eq null}">
+								<ui:include src="/tpl/postView.xhtml" />
+							</c:when>
+							<c:otherwise>
+								<c:choose>
+									<c:when test="${viewPostBB.share eq viewPostBB.true_share}">
+										<ui:include src="/tpl/postView.xhtml" />
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${viewPostBB.author.id eq remoteClient.details.id or remoteClient.details.type eq 2}">
+												<ui:include src="/tpl/postView.xhtml" />
+											</c:when>
+											<c:otherwise>
+												<ui:include src="/tpl/post_404.xhtml" />
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
+								
+							</c:otherwise>
+						</c:choose>
+						
+						
+					</c:when>
+					<c:otherwise>
+						<ui:include src="/tpl/post_404.xhtml" />
+					</c:otherwise>
+				</c:choose>
+				
+				<!--  
+				<h:form>
+					
+					<h:outputLabel value='#{conf.get("app_title")}' />
+					<hr/>
+					<h:outputLabel value='#{viewPostBB.getContent()}' />
+					
+				</h:form>
+				-->
+			</div>
+		</ui:define>
+	</ui:composition>
+
+</html>

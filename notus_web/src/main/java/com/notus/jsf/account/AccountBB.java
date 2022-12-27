@@ -18,7 +18,6 @@ import com.notus.jsf.dao.UserDAO;
 import com.notus.jsf.e.User;
 
 
-
 @Named
 @RequestScoped
 public class AccountBB {

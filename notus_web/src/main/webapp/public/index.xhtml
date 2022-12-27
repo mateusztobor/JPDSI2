@@ -8,19 +8,68 @@
       xmlns:c="http://java.sun.com/jstl/core">
       
 	<ui:composition template="/tpl/main.xhtml">
-		<ui:define name="title">Index</ui:define>
+		<ui:define name="title">Stwórz notatkę</ui:define>
 		
 		<ui:define name="cont">
-		
 			<c:if test="#{not empty remoteClient.details.type}">
 				<c:if test="#{not empty param['r']}">
 					 <ui:include src="/tpl/hello.xhtml" />
 				</c:if>
 			</c:if>
-			
+		
+		
 			<div id="box">
+				<h:form>
+					<c:choose>
+						<c:when test="${empty remoteClient.details.type}">
+							<h2 class="lighter text-center">Zaloguj się, aby móc lepiej zarządzać swoimi notatkami!</h2>
+						</c:when>
+						<c:otherwise>
+							<div class="ui-g text-center">
+						
+								<div class="ui-g-6" style="padding:0;">
+					                <div class="ui-inputgroup">
+					                    <div class="ui-inputgroup-addon"><i class="pi pi-book"></i></div>
+					                    <p:inputText placeholder="Tytuł notatki" style="width:100%;"/>
+					                </div>
+								</div>
+								<div class="ui-g-6" style="margin:0; padding:0;">
+									<div class="ui-inputgroup">
+						                <p:selectOneMenu id="option" value="#{selectOneMenuView.selectedOption}" style="width:100%;">
+						                    <f:selectItem itemLabel="Brak kategorii" itemValue=""/>
+						                    <f:selectItem itemLabel="Option1" itemValue="Option1"/>
+						                    <f:selectItem itemLabel="Option2" itemValue="Option2"/>
+						                    <f:selectItem itemLabel="Option3" itemValue="Option3"/>
+						                </p:selectOneMenu>
+					                </div>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
 
-				Index
+            
+
+					
+					<p:inputTextarea value="#{postBB.note}" styleClass="notes" autoResize="false"/>
+					
+					
+					<div class="text-center">
+						<c:choose>
+							<c:when test="${empty remoteClient.details.type}">
+								<div class="mb-10">
+									Notując jako gość nie będziesz mógł edytować ani usuwać swoich notatek.
+								</div>
+								<div>
+									<p:commandButton value="Zapisz notusia" action="#{postBB.save_guest()}" styleClass="rounded-button ui-button-danger" icon="pi pi-save" iconPos="left" />
+								</div>
+							</c:when>
+							<c:otherwise>
+								<p:commandButton value="Zapisz notusia" action="#{postBB.save_guest()}" styleClass="rounded-button ui-button-danger" icon="pi pi-save" iconPos="left" />
+							</c:otherwise>
+						</c:choose>
+					</div>
+					
+				</h:form>
 			</div>
 		</ui:define>
 	</ui:composition>

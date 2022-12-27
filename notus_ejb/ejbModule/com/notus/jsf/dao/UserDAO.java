@@ -52,38 +52,31 @@ public class UserDAO {
 	}
 	
 	public Boolean checkNickUnique(String nick) {
-		User u = null;
 
 		Query query = em.createQuery("select u FROM User u where u.nick=:nick");
 		query.setParameter("nick", nick);
 		
 		try {
 			User user = (User) query.getSingleResult();
-			u = new User();
-			u.setId(user.getId());
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		if(u == null) return true;
-		return false;
+		return true;
 	}
 	
 	public Boolean checkEmailUnique(String email) {
-		User u = null;
-
 		Query query = em.createQuery("select u FROM User u where u.email=:email");
 		query.setParameter("email", email);
 		
 		try {
 			User user = (User) query.getSingleResult();
-			u = new User();
-			u.setId(user.getId());
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(u == null) return true;
-		return false;
+		return true;
 	}
 	
 	public List<String> getUserRolesFromDatabase(User user) {

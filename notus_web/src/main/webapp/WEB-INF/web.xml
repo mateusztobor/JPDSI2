@@ -64,4 +64,5 @@
 		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
 		<location>/unpublic/viewExpired.xhtml</location>
 	</error-page>
+
 </web-app>
