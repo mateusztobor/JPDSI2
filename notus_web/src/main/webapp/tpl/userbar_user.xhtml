@@ -20,8 +20,10 @@
 		
 		
 	</div>
-	<p:sidebar widgetVar="nav_sidebar" position="right">
-		<h3>Nav</h3>
+	<p:sidebar styleClass="navigation" widgetVar="nav_sidebar" position="right">
+		<div class="sep"></div>
+		<p:link href="/user/posts.xhtml">Moje notatki</p:link>
+		<p:link href="/user/categories.xhtml">Zarządzaj kategoriami</p:link>
 		<c:if test="#{remoteClient.details.type eq 2}">
 			<ui:include src="/tpl/userbar_admin.xhtml" />
 		</c:if>

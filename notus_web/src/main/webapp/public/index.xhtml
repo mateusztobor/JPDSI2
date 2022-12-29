@@ -27,19 +27,25 @@
 						<c:otherwise>
 							<div class="ui-g text-center">
 						
-								<div class="ui-g-6" style="padding:0;">
+								<div class="ui-g-5" style="padding:0;">
 					                <div class="ui-inputgroup">
 					                    <div class="ui-inputgroup-addon"><i class="pi pi-book"></i></div>
-					                    <p:inputText placeholder="Tytuł notatki" style="width:100%;"/>
+					                    <p:inputText placeholder="Tytuł notatki" maxlength="40" value="#{postBB.title}" style="width:100%;"/>
 					                </div>
 								</div>
-								<div class="ui-g-6" style="margin:0; padding:0;">
+								<div class="ui-g-5" style="margin:0; padding:0;">
 									<div class="ui-inputgroup">
-						                <p:selectOneMenu id="option" value="#{selectOneMenuView.selectedOption}" style="width:100%;">
-						                    <f:selectItem itemLabel="Brak kategorii" itemValue=""/>
-						                    <f:selectItem itemLabel="Option1" itemValue="Option1"/>
-						                    <f:selectItem itemLabel="Option2" itemValue="Option2"/>
-						                    <f:selectItem itemLabel="Option3" itemValue="Option3"/>
+									<p:selectOneMenu id="option" value="#{postBB.category}" style="width:100%;">
+											<f:selectItem itemLabel="Bez kategorii" itemValue=""/>
+											<f:selectItems value="#{postBB.load_categories()}" var="cat" itemLabel="#{cat.title}" itemValue="#{cat.id}" />
+										</p:selectOneMenu>
+									</div>
+								</div>
+								<div class="ui-g-2" style="margin:0; padding:0;">
+									<div class="ui-inputgroup">
+						                <p:selectOneMenu id="option2" value="#{postBB.share}" style="width:100%;">
+						                    <f:selectItem itemLabel="Publiczna" itemValue="1"/>
+						                    <f:selectItem itemLabel="Prywatna" itemValue="0"/>
 						                </p:selectOneMenu>
 					                </div>
 								</div>
@@ -60,11 +66,11 @@
 									Notując jako gość nie będziesz mógł edytować ani usuwać swoich notatek.
 								</div>
 								<div>
-									<p:commandButton value="Zapisz notusia" action="#{postBB.save_guest()}" styleClass="rounded-button ui-button-danger" icon="pi pi-save" iconPos="left" />
+									<p:commandButton value="Zapisz notusia" update="growl" action="#{postBB.save_guest()}" styleClass="rounded-button ui-button-danger" icon="pi pi-save" iconPos="left" />
 								</div>
 							</c:when>
 							<c:otherwise>
-								<p:commandButton value="Zapisz notusia" action="#{postBB.save_guest()}" styleClass="rounded-button ui-button-danger" icon="pi pi-save" iconPos="left" />
+								<p:commandButton value="Zapisz notusia" update="growl" action="#{postBB.save_user()}" styleClass="rounded-button ui-button-danger" icon="pi pi-save" iconPos="left" />
 							</c:otherwise>
 						</c:choose>
 					</div>

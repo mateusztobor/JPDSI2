@@ -9,13 +9,7 @@
         <ui:insert name="head"><ui:include src="/tpl/head.xhtml" /></ui:insert>
         <h:body>
 			
-        	<!--  <script type="text/javascript" src="#{request.contextPath}/resources/js/preloader.js"></script> -->
-        	
-        	<ui:insert name="header"><ui:include src="/tpl/header.xhtml" /></ui:insert>
-			<ui:insert name="content"><ui:include src="/tpl/content.xhtml" /></ui:insert>			
-			<ui:insert name="footer"><ui:include src="/tpl/footer.xhtml" /></ui:insert>
-			
-			<!--
+        	<script type="text/javascript" src="#{request.contextPath}/resources/js/preloader.js"></script>
 			<div class="preloader js-preloader flex-center">
 				<div class="dots">
 					<div class="dot"></div>
@@ -25,7 +19,13 @@
 			</div>
 			  <script>
 				$('.preloader').preloadinator();
-			</script>-->
+			</script>
+        	
+        	<ui:insert name="header"><ui:include src="/tpl/header.xhtml" /></ui:insert>
+			<ui:insert name="content"><ui:include src="/tpl/content.xhtml" /></ui:insert>			
+			<ui:insert name="footer"><ui:include src="/tpl/footer.xhtml" /></ui:insert>
+			
+
         </h:body>
     </f:view>
 </html>

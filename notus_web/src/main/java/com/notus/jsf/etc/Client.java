@@ -23,6 +23,10 @@ public class Client implements Serializable {
 	@SuppressWarnings("unchecked")
 	private RemoteClient<User> r = RemoteClient.load(session);
 	
+	public User getClient() {
+		return r.getDetails();
+	}
+	
 	public int getId() {
 		if(r != null)
 			return r.getDetails().getId();

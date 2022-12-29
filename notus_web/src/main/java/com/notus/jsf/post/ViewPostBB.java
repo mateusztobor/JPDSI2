@@ -1,4 +1,4 @@
-package com.notus.jsf.viewpost;
+package com.notus.jsf.post;
 
 import java.io.IOException;
 import java.util.Date;
