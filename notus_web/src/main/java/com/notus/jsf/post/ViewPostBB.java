@@ -6,16 +6,13 @@ import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import com.notus.jsf.e.Post;
 import com.notus.jsf.e.User;
 import com.notus.jsf.e.Category;
 
 import com.notus.jsf.dao.PostDAO;
-import com.notus.jsf.dao.UserDAO;
 
 @Named
 @RequestScoped
@@ -27,6 +24,7 @@ public class ViewPostBB {
 	private int id=0;
 	private byte share=(byte)0,
 				 true_share=(byte)1;
+	@SuppressWarnings("unused")
 	private String pin=null,
 				   content=null,
 				   title=null,
@@ -43,17 +41,18 @@ public class ViewPostBB {
 	PostDAO postDAO;
 	public ViewPostBB() throws IOException {
 		pin = paramMap.get("pin");
-		if(validPin()) {
-			
-			
-			
-		} else redirectHome();
+		if(!validPin()) redirectHome();
     }
+	
+	public String stay() {
+		return null;
+	}
 	
 	
 	
 	
 	public Boolean PostExists() {
+		pin = paramMap.get("pin");
 		Post p = new Post();
 		p = postDAO.getPostByPin(pin);
 		
@@ -87,6 +86,10 @@ public class ViewPostBB {
 		
 		return true;
 	}
+	
+
+	
+	
 	
 	
 	

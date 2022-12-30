@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -18,17 +17,12 @@ import com.notus.jsf.dao.PostDAO;
 import com.notus.jsf.dao.UserDAO;
 import com.notus.jsf.dao.CategoryDAO;
 import com.notus.jsf.etc.Pin;
-import com.notus.jsf.etc.Mess;
-import com.notus.jsf.etc.Client;
 
 
 @Named
 @RequestScoped
 public class PostBB {
 	private String note, title, share, category;
-	@Inject
-	Client c;
-	
 	@Inject
 	PostDAO postDAO;
 	
@@ -43,9 +37,7 @@ public class PostBB {
 	
 	@Inject
 	Client client;
-	
-	
-	
+
 	public String getNote() {
 		return note;
 	}
@@ -76,20 +68,6 @@ public class PostBB {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-
-	public int test() {
-		Post post = new Post();
-		
-		//post.setShare(true);
-		post.setContent(note);
-		
-		return c.getId();
-	}
-	
-	public PostBB() {
-
-		
-	}
 	
 	public List<Category> load_categories() {
 		User u = new User();
@@ -107,9 +85,7 @@ public class PostBB {
 			post.setPin(post_pin);
 			post.setDate(new Date());
 			postDAO.add(post);
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.getExternalContext().getFlash().setKeepMessages(true);
-			Mess.add(FacesMessage.SEVERITY_INFO, "Ok", "Notatka została utworzona.");
+			Mess.add2(FacesMessage.SEVERITY_INFO, "Ok", "Notatka została utworzona.");
 			return "/public/post.xhtml?faces-redirect=true&pin="+post_pin;
 		} else Mess.add(FacesMessage.SEVERITY_WARN, "Błąd", "Nie można zapisać pustej notatki.");
 		return null;
@@ -154,13 +130,23 @@ public class PostBB {
 			
 			postDAO.add(post);
 			
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.getExternalContext().getFlash().setKeepMessages(true);
-			Mess.add(FacesMessage.SEVERITY_INFO, "Ok", "Notatka została utworzona.");
+			Mess.add2(FacesMessage.SEVERITY_INFO, "", "Notatka została utworzona.");
 			
 			return "/public/post.xhtml?faces-redirect=true&pin="+post_pin;
 		} else Mess.add(FacesMessage.SEVERITY_WARN, "Błąd", "Nie można zapisać pustej notatki.");
 		return null;
+	}
+	
+	
+	public String delPost(int postId) {
+		postDAO.delPost(postId, client.getId());
+			//System.out.println(postId);
+//			Post post = new Post();
+//			post = postDAO.get(postId);
+//			postDAO.del(post);
+
+		
+		return Mess.here();
 	}
 	
 

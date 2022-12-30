@@ -39,9 +39,19 @@
 	
 	<div class="text-center">
 		<p:button href="/public/index.xhtml" value="Utwórz nową notatkę" styleClass="rounded-button ui-button-danger" style="margin-right:15px" icon="pi pi-plus" />
-		<p:commandButton type="button" onclick="copyUrl()" value="Skopiuj adres do schowka" styleClass="btncopy rounded-button ui-button-danger" icon="pi pi-copy" />
+		<p:commandButton type="button" action="#{viewPostBB.stay()}" onclick="copyUrl()" value="Skopiuj adres do schowka" styleClass="btncopy rounded-button ui-button-danger" icon="pi pi-copy" />
+		
 		<c:if test="#{viewPostBB.author.id eq remoteClient.details.id and viewPostBB.author ne null or remoteClient.details.type eq 2}">
 			<p:button href="/public/index.xhtml" value="Edytuj notatkę" styleClass="rounded-button ui-button-danger" style="margin-left:15px" icon="pi pi-pencil" />
+			
+			<p:commandButton action="#{postBB.delPost(viewPostBB.id)}" update="growl" value="Usuń" icon="pi pi-trash" styleClass="rounded-button ui-button-danger" style="margin-left:15px">  
+				<p:confirm message="Czy na pewno chcesz usunąć ten wpis?" icon="pi pi-info-circle"/>
+			</p:commandButton>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+				<p:commandButton value="Anuluj" type="button" styleClass="ui-confirmdialog-no ui-button-fla ui-button-dangert"/>
+				<p:commandButton value="Usuń" type="button" styleClass="ui-confirmdialog-yes ui-button-danger" />
+			</p:confirmDialog>
 		</c:if>
 	</div>
 	

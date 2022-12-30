@@ -1,5 +1,7 @@
 package com.notus.jsf.dao;
 
+import java.util.List;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -7,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import com.notus.jsf.e.Category;
 import com.notus.jsf.e.Post;
 
 @Named
@@ -39,9 +42,8 @@ public class PostDAO {
 		try {
 			Post post = (Post) query.getSingleResult();
 			return false;
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+		catch (Exception nre) {}
 		return true;
 	}
 	
@@ -70,5 +72,35 @@ public class PostDAO {
 		}
 		return p;
 	}
+	
+	public Boolean delPost(int post_id, int user_id) {
+		Post post = new Post();
+		post = get(post_id);
+		
+		if(post != null) {
+			if(post.getUser().getId() == user_id) {
+				del(post);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public List<Post> loadCategoryPosts(Category cat) {
+		List<Post> posts = null;
+
+		Query query = em.createQuery("select p FROM Post p where categoryBean=:cat ORDER BY p.date");
+		//Query query = em.createQuery("select u FROM Category u where u.User=:user_id");
+		//SELECT w FROM WorkEntry w WHERE w.customerId.customerId = 1
+		query.setParameter("cat", cat);
+		
+		try {
+			posts = (List<Post>) query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return posts;
+	}
+	
 
 }

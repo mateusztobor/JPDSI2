@@ -9,6 +9,8 @@ import javax.inject.Named;
 
 import com.notus.jsf.etc.Client;
 import com.notus.jsf.etc.Mess;
+import com.notus.jsf.e.Post;
+import com.notus.jsf.dao.PostDAO;
 import com.notus.jsf.e.Category;
 import com.notus.jsf.dao.CategoryDAO;
 import com.notus.jsf.etc.Mess;
@@ -20,6 +22,9 @@ import com.notus.jsf.etc.Client;
 public class CategoryBB {
 	@Inject
 	CategoryDAO categoryDAO;
+	
+	@Inject
+	PostDAO postDAO;
 	
 	@Inject
 	Client client;
@@ -68,6 +73,16 @@ public class CategoryBB {
 		}
 		Mess.add(FacesMessage.SEVERITY_ERROR, "", "Nie można było dodać kategorii.");
 		return null;
+	}
+	
+	public Boolean loadCategoriesWithPosts() {
+		if(loadCategories()) {
+			for(Category cat : categories) {
+				cat.setPosts(postDAO.loadCategoryPosts(cat));
+			}
+			return true;
+		}
+		return false;
 	}
 
 	
