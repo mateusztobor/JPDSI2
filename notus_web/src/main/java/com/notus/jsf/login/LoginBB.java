@@ -78,7 +78,7 @@ public class LoginBB {
 		client.store(request);
 		
 		// and enter the system (now SecurityFilter will pass the request)
-		return Redirect.here();
+		return Redirect.home();
 	}
 	
 	public String doLogout(){
