@@ -9,10 +9,11 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import com.notus.jsf.e.Post;
-import com.notus.jsf.e.User;
-import com.notus.jsf.e.Category;
 
 import com.notus.jsf.dao.PostDAO;
+import com.notus.jsf.etc.Pin2;
+import com.notus.jsf.etc.Redirect;
+import com.notus.jsf.etc.Client;
 
 @Named
 @RequestScoped
@@ -20,202 +21,104 @@ public class ViewPostBB {
 	FacesContext context = FacesContext.getCurrentInstance();
 	Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
 	
+	private String post_pin=null,
+				   post_content=null,
+				   post_title=null,
+				   post_category=null,
+				   post_author=null,
+				   page_title=null;
 	
-	private int id=0;
-	private byte share=(byte)0,
-				 true_share=(byte)1;
-	@SuppressWarnings("unused")
-	private String pin=null,
-				   content=null,
-				   title=null,
-				   shared=null,
-				   category_name=null,
-				   author_name=null,
-				   title_show=null;
-	Date date = null;
-	Category category = null;
-	User author = null;
+	private boolean post_share, post_exists = false, perm_edit = false;
+	
+	Date post_date = null;
 	
 
 	@Inject
 	PostDAO postDAO;
+	@Inject
+	Client client;
+	
 	public ViewPostBB() throws IOException {
-		pin = paramMap.get("pin");
-		if(!validPin()) redirectHome();
+		post_pin = paramMap.get("pin");
+		if(!Pin2.valid(post_pin)) Redirect.home();
     }
 	
-	public String stay() {
-		return null;
-	}
-	
-	
-	
-	
 	public Boolean PostExists() {
-		pin = paramMap.get("pin");
+		post_pin = paramMap.get("pin");
 		Post p = new Post();
-		p = postDAO.getPostByPin(pin);
+		p = postDAO.getPostByPin(post_pin);
 		
 		if(p == null) return false;
-		
-		id = p.getId();
-		title = p.getTitle();
-		if(title == null) {
-			title_show = pin;
-		} else {
-			title_show = title;
+		if(p.getUser() == null & client.getType() == 2) perm_edit = true;
+		if(p.getUser() != null) {
+			if(p.getShare() != (byte)1 &
+				p.getUser().getId() != client.getId() &
+				client.getType() != 2)
+			return false;
+			
+			if(p.getUser().getId() == client.getId() || client.getType() == 2) perm_edit = true;
 		}
-		if(title == null) title = "Bez tytułu";
-		content = p.getContent();
-		
-		date = p.getDate();
-		
-		category = p.getCategoryBean();
-		category_name = "Bez kategorii";
-		if(category != null) category_name = category.getTitle();
 		
 		
-		author = p.getUser();
-		author_name = "Gość";
-		if(author != null) author_name = author.getNick();
+		if(p.getTitle() == null) {
+			page_title = p.getPin();
+			post_title = "Bez tytułu";
+		}
+		else {
+			page_title = p.getTitle();
+			post_title = p.getTitle();
+		}
 		
+		post_content = p.getContent();
 		
-		share = p.getShare();
-		if(share == true_share) shared = "Publiczna";
-		else shared = "Prywatna";
+		post_date = p.getDate();
 		
+		post_category = "Bez kategorii";
+		if(p.getCategoryBean() != null) post_category = p.getCategoryBean().getTitle();
+		
+		post_author = "Gość";
+		if(p.getUser() != null) post_author = p.getUser().getNick();
+		
+		post_share = p.getShare()!=0;
+		
+		post_exists = true;
 		return true;
 	}
-	
 
-	
-	
-	
-	
-	
-	
-	public String getContent() {
-		Post p = postDAO.getPostByPin(pin);
-		if(p != null)
-		return p.getContent();
-		return null;
+	public String getPage_title() {
+		return page_title;
 	}
-	
-	private Boolean validPin() {
-		if(pin == null) return false;
-		if(pin.length() != 6) return false;
-		for(int i=0; i < pin.length(); i++) {
-			if(pin.charAt(i) != '0' &&
-			pin.charAt(i) != '1' &&
-			pin.charAt(i) != '2' &&
-			pin.charAt(i) != '3' &&
-			pin.charAt(i) != '4' &&
-			pin.charAt(i) != '5' &&
-			pin.charAt(i) != '6' &&
-			pin.charAt(i) != '7' &&
-			pin.charAt(i) != '8' &&
-			pin.charAt(i) != '9')
-				return false;
-		}
-		return true;
+
+	public String getPost_content() {
+		return post_content;
+	}
+
+	public String getPost_title() {
+		return post_title;
+	}
+
+	public String getPost_category() {
+		return post_category;
+	}
+
+	public String getPost_author() {
+		return post_author;
+	}
+
+	public boolean isPost_share() {
+		return post_share;
+	}
+
+	public boolean isPost_exists() {
+		return post_exists;
 	}
 	
-	private void redirectHome() throws IOException {
-		context.getExternalContext().redirect("/public/index.xhtml");
-		
-	}
-	
-	
-    
-    public String getPin() {
-		return pin;
+	public boolean isPerm_edit() {
+		return perm_edit;
 	}
 
-	public void setPin(String pin) {
-		this.pin = pin;
+	public Date getPost_date() {
+		return post_date;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public byte getShare() {
-		return share;
-	}
-
-	public void setShare(byte share) {
-		this.share = share;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	public User getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(User author) {
-		this.author = author;
-	}
-	
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public byte getTrue_share() {
-		return true_share;
-	}
-	public void setTrue_share(byte true_share) {
-		this.true_share = true_share;
-	}
-
-	public String getShared() {
-		return shared;
-	}
-	public void setShared(String shared) {
-		this.shared = shared;
-	}
-	public String getCategory_name() {
-		return category_name;
-	}
-	public void setCategory_name(String category_name) {
-		this.category_name = category_name;
-	}
-	public String getAuthor_name() {
-		return author_name;
-	}
-	public void setAuthor_name(String author_name) {
-		this.author_name = author_name;
-	}
-	public String getTitle_show() {
-		return title_show;
-	}
-	public void setTitle_show(String title_show) {
-		this.title_show = title_show;
-	}
 }

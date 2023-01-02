@@ -8,79 +8,25 @@
       xmlns:c="http://java.sun.com/jstl/core">
       
 	<ui:composition template="/tpl/main.xhtml">
-		<ui:define name="title">Zarządzanie kategoriami</ui:define>
+	
+		
+		<ui:define name="title">
+			Edycja notatki
+		</ui:define>
 		
 		<ui:define name="cont">
-			<div class="box">
-				<h2>Dodawanie nowej kategorii</h2>
-				
-				<div class="cat-box">
-					<h:form>
-						<div class="ui-g text-center">
-							<div class="ui-g-9" style="margin:0; padding:0;">
-				                <div class="ui-inputgroup">
-				                    <div class="ui-inputgroup-addon"><i class="pi pi-folder"></i></div>
-				                    <p:inputText placeholder="Nazwa kategorii" maxlength="40" value="#{categoryBB.cat_title}" style="width:100%;" required="true" requiredMessage="Nazwa kategorii nie może być pusta."/>
-				                </div>
-							</div>
-							<div class="ui-g-2" style="padding:0;">
-				                <div class="ui-inputgroup">
-					                <p:spinner id="horizontalAfter" placeholder="Kolejność" value="#{categoryBB.cat_orderNum}" buttons="horizontal-after" upButtonStyleClass="ui-button-success" downButtonStyleClass="ui-button-danger" min="0" required="true"/>
-				                </div>
-							</div>
-							<div class="ui-g-1" style="padding:0;">
-				                <p:commandButton value="Dodaj" update="growl" action="#{categoryBB.add()}" styleClass="ui-button-raised ui-button-flat ui-button-plain" icon="pi pi-plus" iconPos="left"/>
-							</div>
-						</div>
-					</h:form>
-				</div>
-			</div>
-
-			
-			
-			<div class="box mt-20">
-				<h2>Zarządzaj istniejącymi kategoriami</h2>
+			<div id="box">
 				<c:choose>
-					<c:when test="${categoryBB.loadCategories() eq true}">
-						<h:form>
-							<div><p:commandButton value="Zapisz" update="growl" action="#{categoryBB.save_all()}" styleClass="ui-button-raised ui-button-flat ui-button-plain" icon="pi pi-save" iconPos="left" /></div>
-							
-							<ui:repeat value="#{categoryBB.categories}" var="category">
-								<div class="cat-box">
-									<p:inputText value="#{category.id}" type="hidden" />
-									<div class="ui-g text-center">
-										<div class="ui-g-9" style="margin:0; padding:0;">
-											<div class="ui-inputgroup">
-												<div class="ui-inputgroup-addon"><i class="pi pi-folder"></i></div>
-												<p:inputText placeholder="Nazwa kategorii" maxlength="40" value="#{category.title}" style="width:100%;" required="true" requiredMessage="Nazwa kategorii nie może być pusta."/>
-											</div>
-										</div>
-										<div class="ui-g-2" style="padding:0;">
-											<div class="ui-inputgroup">
-												<p:spinner id="horizontalAfter" value="#{category.orderNum}" buttons="horizontal-after" upButtonStyleClass="ui-button-success" downButtonStyleClass="ui-button-danger" min="0" required="true"/>
-											</div>
-										</div>
-										<div class="ui-g-1" style="padding:0;">
-											<p:commandButton update="growl" icon="pi pi-times" styleClass="rounded-button ui-button-danger ui-button-flat" action="#{categoryBB.del(category.id)}">
-												<p:confirm type="popup" message="Czy na pewno chcesz usunąć tę kategorię?" icon="pi pi-info-circle"/>
-											</p:commandButton>
-										</div>
-									</div>
-								</div>
-							</ui:repeat>
-							<div><p:commandButton value="Zapisz" update="growl" action="#{categoryBB.save_all()}" styleClass="ui-button-raised ui-button-flat ui-button-plain" icon="pi pi-save" iconPos="left" /></div>
-							<p:confirmPopup global="true">
-								<p:commandButton value="Anuluj" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
-								<p:commandButton value="Usuń" type="button" styleClass="ui-confirm-popup-yes" />
-							</p:confirmPopup>
-						</h:form>
+					<c:when test="${editPostBB.post_exists eq true}">
+						<ui:include src="/tpl/edit_post.xhtml" />
 					</c:when>
 					<c:otherwise>
-						<p:staticMessage severity="info" summary="" detail="Nie utworzyłeś jeszcze żadnej kategorii." style="width: 100%"/>
+						<ui:include src="/tpl/post_403.xhtml" />
 					</c:otherwise>
 				</c:choose>
 			</div>
 		</ui:define>
+		
 	</ui:composition>
 
 </html>

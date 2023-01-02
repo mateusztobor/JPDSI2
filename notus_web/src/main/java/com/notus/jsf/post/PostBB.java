@@ -17,6 +17,7 @@ import com.notus.jsf.dao.PostDAO;
 import com.notus.jsf.dao.UserDAO;
 import com.notus.jsf.dao.CategoryDAO;
 import com.notus.jsf.etc.Pin;
+import com.notus.jsf.etc.Redirect;
 
 
 @Named
@@ -140,13 +141,8 @@ public class PostBB {
 	
 	public String delPost(int postId) {
 		postDAO.delPost(postId, client.getId());
-			//System.out.println(postId);
-//			Post post = new Post();
-//			post = postDAO.get(postId);
-//			postDAO.del(post);
-
-		
-		return Mess.here();
+		Mess.add2(FacesMessage.SEVERITY_INFO, "", "Wpis został usunięty.");
+		return Redirect.here();
 	}
 	
 

@@ -16,12 +16,11 @@ import com.notus.jsf.dao.UserDAO;
 import com.notus.jsf.e.User;
 import com.notus.jsf.etc.Md5;
 import com.notus.jsf.etc.Mess;
+import com.notus.jsf.etc.Redirect;
 
 @Named
 @RequestScoped
 public class LoginBB {
-	private static final String PAGE_MAIN = "/public/index.xhtml?faces-redirect=true";
-	private static final String PAGE_STAY_AT_THE_SAME = null;
 
 	private String email;
 	private String password;
@@ -57,8 +56,8 @@ public class LoginBB {
 
 		// 2. if bad login or password - stay with error info
 		if (user == null) {
-			Mess.add(FacesMessage.SEVERITY_WARN, "Błąd logowania", "Podana kombinacja adresu email i hasła jest nieprawidłowa.");
-			return PAGE_STAY_AT_THE_SAME;
+			Mess.add(FacesMessage.SEVERITY_WARN, "", "Podana kombinacja adresu email i hasła jest nieprawidłowa.");
+			return null;
 		}
 
 		// 3. if logged in: get User roles, save in RemoteClient and store it in session
@@ -79,7 +78,7 @@ public class LoginBB {
 		client.store(request);
 		
 		// and enter the system (now SecurityFilter will pass the request)
-		return PAGE_MAIN;
+		return Redirect.here();
 	}
 	
 	public String doLogout(){
@@ -89,7 +88,7 @@ public class LoginBB {
 		// - all objects within session will be destroyed
 		// - new session will be created (with new ID)
 		session.invalidate();
-		return PAGE_MAIN;
+		return Redirect.home();
 	}
 	
 }

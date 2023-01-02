@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+      
+	<ui:composition template="/tpl/main.xhtml">
+		<ui:define name="title">Admin Terminal</ui:define>
+		
+		<ui:define name="cont">
+			
+			<div id="box">
+				<h1>Admin Terminal</h1>
+			    <h:form>
+			        <p:focus for="terminal"/>
+			
+			        <p:terminal id="terminal" prompt="#{remoteClient.details.nick}@Notuś >> " widgetVar="term" commandHandler="#{AdminTerminal.handleCommand}" welcomeMessage='Witaj, #{remoteClient.details.nick}! :)'/>
+					
+					<div class="mt-10 mb-10 text-center">
+			       		<p:commandButton type="button" value="Wyczyść terminal" icon="pi pi-trash" onclick="PF('term').clear()" styleClass="rounded-button ui-button-danger" />
+			        </div>
+			        <table style="margin:0 auto;border:1px solid #aaa;">
+			        	<tr>
+			        		<td><strong>Polecenie</strong></td><td></td><td><strong>Opis</strong></td>
+			      		</tr>
+			      		
+			      		<tr>
+			      			<td>
+			      				setperm nick [banned|user|admin]
+			      			</td>
+			      			<td> - </td>
+			      			<td>Ustawia uprawnienia użytkownika.</td>
+			      		</tr>
+			      		
+			      		<tr>
+			      			<td>
+			      				getperm nick
+			      			</td>
+			      			<td> - </td>
+			      			<td>Wyświetla aktualne uprawnienia użytkownika.</td>
+			      		</tr>
+			      		<tr>
+			      			<td>listperm [banned|user|admin]</td>
+			      			<td> - </td>
+			      			<td>Ustawia listę kont posiadających uprawnienia.</td>
+			      		</tr>
+			       		<tr>
+			      			<td>deluser nick</td>
+			      			<td> - </td>
+			      			<td>Usuwa konto użytkownika i wszystkie jego posty oraz kategorie.</td>
+			      		</tr>
+			       		<tr>
+			      			<td>delpost pin</td>
+			      			<td> - </td>
+			      			<td>Usuwa wpis.</td>
+			      		</tr>
+			       		<tr>
+			      			<td>about</td>
+			      			<td> - </td>
+			      			<td>Wyświetla informacje o Notusiu.</td>
+			      		</tr>
+			        </table>
+			        
+			    </h:form>
+			</div>
+			
+		</ui:define>
+	</ui:composition>
+
+</html>

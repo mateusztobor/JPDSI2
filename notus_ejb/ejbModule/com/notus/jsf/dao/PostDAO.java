@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 
 import com.notus.jsf.e.Category;
 import com.notus.jsf.e.Post;
+import com.notus.jsf.e.User;
 
 @Named
 @RequestScoped
@@ -89,10 +90,24 @@ public class PostDAO {
 	public List<Post> loadCategoryPosts(Category cat) {
 		List<Post> posts = null;
 
-		Query query = em.createQuery("select p FROM Post p where categoryBean=:cat ORDER BY p.date");
+		Query query = em.createQuery("select p FROM Post p where categoryBean=:cat ORDER BY p.date DESC");
 		//Query query = em.createQuery("select u FROM Category u where u.User=:user_id");
 		//SELECT w FROM WorkEntry w WHERE w.customerId.customerId = 1
 		query.setParameter("cat", cat);
+		
+		try {
+			posts = (List<Post>) query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return posts;
+	}
+	
+	public List<Post> loadPostsWithoutCategory(User us) {
+		List<Post> posts = null;
+
+		Query query = em.createQuery("select p FROM Post p where categoryBean is NULL and user=:us ORDER BY p.date DESC");
+		query.setParameter("us", us);
 		
 		try {
 			posts = (List<Post>) query.getResultList();

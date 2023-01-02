@@ -10,38 +10,22 @@
 	<ui:composition template="/tpl/main.xhtml">
 	
 		
-		<ui:define name="title">Notatka: <h:outputText value="#{viewPostBB.title_show}" /></ui:define>
+		<ui:define name="title">
+			<c:choose>
+				<c:when test="${viewPostBB.PostExists() eq true}">
+					Notatka: <h:outputText value="#{viewPostBB.page_title}" />
+				</c:when>
+				<c:otherwise>
+					Błąd
+				</c:otherwise>
+			</c:choose>
+		</ui:define>
 		
 		<ui:define name="cont">
 			<div id="box">
 				<c:choose>
-					<c:when test="${viewPostBB.PostExists() eq true}">
-					
-						<c:choose>
-							<c:when test="${viewPostBB.author eq null}">
-								<ui:include src="/tpl/postView.xhtml" />
-							</c:when>
-							<c:otherwise>
-								<c:choose>
-									<c:when test="${viewPostBB.share eq viewPostBB.true_share}">
-										<ui:include src="/tpl/postView.xhtml" />
-									</c:when>
-									<c:otherwise>
-										<c:choose>
-											<c:when test="${viewPostBB.author.id eq remoteClient.details.id or remoteClient.details.type eq 2}">
-												<ui:include src="/tpl/postView.xhtml" />
-											</c:when>
-											<c:otherwise>
-												<ui:include src="/tpl/post_404.xhtml" />
-											</c:otherwise>
-										</c:choose>
-									</c:otherwise>
-								</c:choose>
-								
-							</c:otherwise>
-						</c:choose>
-						
-						
+					<c:when test="${viewPostBB.post_exists eq true}">
+						<ui:include src="/tpl/view_post.xhtml" />
 					</c:when>
 					<c:otherwise>
 						<ui:include src="/tpl/post_404.xhtml" />

@@ -16,48 +16,82 @@
 				<c:choose>
 					<c:when test="${categoryBB.loadCategoriesWithPosts() eq true}">
 						<h:form>
+							<p:fieldset legend="Bez kategorii" toggleable="true" toggleSpeed="500" collapsed="true" styleClass="mb-20">
+								<div class="ui-g text-center">
+									<ui:repeat value="#{categoryBB.getPostsWithoutCategory()}" var="post">
+										<div class="ui-g-4">
+											<div class="postbox">
+												<div class="title">#{post.title}</div>
+												<div class="content"><h:outputText value="#{post.content.length() gt 160 ? post.content.substring(0,157).concat('...') : post.content}" /></div>
+
+												<div class="more">
+													<div>
+														<i class="pi pi-clock mr-5"></i>
+														<h:outputText value="#{post.date}">
+														    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+														</h:outputText>
+													</div>
+
+													<div>
+														<p:link href="/public/post.xhtml?pin=#{post.pin}" id="header-brand"><i class="pi pi-link"></i> Otwórz</p:link>
+														<p:link href="/user/editPost.xhtml?pin=#{post.pin}"><i class="pi pi-pencil"></i> Edytuj</p:link>
+														<p:commandLink action="#{postBB.delPost(post.id)}" ajax="false">
+															<i class="pi pi-trash"></i> Usuń
+															<p:confirm type="popup" header="" message="Czy na pewno chcesz usunąć ten wpis?" icon="pi pi-exclamation-triangle"/>
+														</p:commandLink>
+													</div>
+
+													
+												</div>
+											</div>
+										</div>
+									</ui:repeat>
+
+								</div>
+							</p:fieldset>
 							
 							<ui:repeat value="#{categoryBB.categories}" var="category">
 								
-								<div class="cat-box post_content">
-									<h2>#{category.title}</h2>
-									<div class="ui-g text-center">
-										<ui:repeat value="#{category.posts}" var="post">
-											<div class="ui-g-4">
-												<div class="postbox">
-													<div class="title">#{post.title}</div>
-													<div class="content">#{post.content}</div>
-
-													<div class="more">
-														<div>
-															<i class="pi pi-clock mr-5"></i>
-															<h:outputText value="#{post.date}">
-															    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
-															</h:outputText>
+								<div>
+									<p:fieldset legend="#{category.title}" toggleable="true" toggleSpeed="500" collapsed="true" styleClass="mb-20">
+										<div class="ui-g text-center">
+											<ui:repeat value="#{category.posts}" var="post">
+												<div class="ui-g-4">
+													<div class="postbox">
+														<div class="title">#{post.title}</div>
+														<div class="content"><h:outputText value="#{post.content.length() gt 160 ? post.content.substring(0,157).concat('...') : post.content}" /></div>
+	
+														<div class="more">
+															<div>
+																<i class="pi pi-clock mr-5"></i>
+																<h:outputText value="#{post.date}">
+																    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+																</h:outputText>
+															</div>
+	
+															<div>
+																<p:link href="/public/post.xhtml?pin=#{post.pin}" id="header-brand"><i class="pi pi-link"></i> Otwórz</p:link>
+																<p:link href="/user/editPost.xhtml?pin=#{post.pin}"><i class="pi pi-pencil"></i> Edytuj</p:link>
+																<p:commandLink action="#{postBB.delPost(post.id)}" ajax="false">
+																	<i class="pi pi-pencil"></i> Usuń
+																	<p:confirm type="popup" header="" message="Czy na pewno chcesz usunąć ten wpis?" icon="pi pi-exclamation-triangle"/>
+																</p:commandLink>
+															</div>
+															
+															
 														</div>
-
-														<div>
-															<p:link href="/public/post.xhtml?pin=#{post.pin}" id="header-brand"><i class="pi pi-link"></i> Otwórz</p:link>
-															<p:link href="http://localhost:8080"><i class="pi pi-pencil"></i> Edytuj</p:link>
-															<p:commandLink action="#{postBB.delPost(post.id)}" ajax="false">
-																<i class="pi pi-pencil"></i> Usuń
-																<p:confirm type="popup" header="" message="Czy na pewno chcesz usunąć ten wpis?" icon="pi pi-exclamation-triangle"/>
-															</p:commandLink>
-														</div>
-														
-														
 													</div>
 												</div>
-											</div>
-										</ui:repeat>
-
-									</div>
+											</ui:repeat>
+	
+										</div>
+									</p:fieldset>
 								</div>
 							</ui:repeat>
 							
 					        <p:confirmPopup global="true">
-					            <p:commandButton value="No" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
-					            <p:commandButton value="Yes" type="button" styleClass="ui-confirm-popup-yes" />
+					            <p:commandButton value="Anuluj" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
+					            <p:commandButton value="Usuń" type="button" styleClass="ui-confirm-popup-yes" />
 					        </p:confirmPopup>
 						</h:form>
 					</c:when>

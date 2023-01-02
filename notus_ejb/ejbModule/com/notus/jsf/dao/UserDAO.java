@@ -9,6 +9,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import com.notus.jsf.e.Category;
+import com.notus.jsf.e.Post;
 import com.notus.jsf.e.User;
 
 @Named
@@ -20,6 +22,10 @@ public class UserDAO {
 	
 	public User update(User user) {
 		return em.merge(user);
+	}
+	
+	public void del(User user) {
+		em.remove(em.merge(user));
 	}
 	
 	public User get(User id) {
@@ -39,6 +45,46 @@ public class UserDAO {
 			u.setId(user.getId());
 			u.setEmail(email);
 			u.setPassword(password);
+			u.setNick(user.getNick());
+			u.setType(user.getType());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return u;
+	}
+	
+	public User getByNick(String nick) {
+		User u = null;
+
+		Query query = em.createQuery("select u FROM User u where u.nick=:nick");
+		query.setParameter("nick", nick);
+		
+		try {
+			User user = (User) query.getSingleResult();
+			u = new User();
+			u.setId(user.getId());
+			u.setEmail(user.getEmail());
+			u.setPassword(user.getPassword());
+			u.setNick(user.getNick());
+			u.setType(user.getType());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return u;
+	}
+	
+	public User getByEmail(String email) {
+		User u = null;
+
+		Query query = em.createQuery("select u FROM User u where u.email=:email");
+		query.setParameter("email", email);
+		
+		try {
+			User user = (User) query.getSingleResult();
+			u = new User();
+			u.setId(user.getId());
+			u.setEmail(user.getEmail());
+			u.setPassword(user.getPassword());
 			u.setNick(user.getNick());
 			u.setType(user.getType());
 		} catch (Exception e) {
@@ -85,5 +131,20 @@ public class UserDAO {
 		else if(user.getType() == 2) roles.add("admin");
 		
 		return roles;
+	}
+	
+	public List<User> usersInRole(int r) {
+		List<User> c = null;
+
+		Query query = em.createQuery("select u FROM User u where u.type=:r");
+		query.setParameter("r", r);
+		
+		try {
+			c = (List<User>) query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return c;
+		
 	}
 }

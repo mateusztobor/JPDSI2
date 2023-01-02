@@ -9,12 +9,10 @@ import javax.inject.Named;
 
 import com.notus.jsf.etc.Client;
 import com.notus.jsf.etc.Mess;
-import com.notus.jsf.e.Post;
 import com.notus.jsf.dao.PostDAO;
 import com.notus.jsf.e.Category;
+import com.notus.jsf.e.Post;
 import com.notus.jsf.dao.CategoryDAO;
-import com.notus.jsf.etc.Mess;
-import com.notus.jsf.etc.Client;
 
 
 @Named
@@ -37,6 +35,10 @@ public class CategoryBB {
 		if(categories != null && categories.size() != 0)
 			return true;
 		return false;
+	}
+	
+	public List<Post> getPostsWithoutCategory() {
+		return postDAO.loadPostsWithoutCategory(client.getClient());
 	}
 	
 	public String save_all() {

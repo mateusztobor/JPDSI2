@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core">
+      
+      
+	<h:form>
+		<div class="ui-g text-center">
+	
+			<div class="ui-g-5" style="padding:0;">
+				<div class="ui-inputgroup">
+					<div class="ui-inputgroup-addon"><i class="pi pi-book"></i></div>
+					<p:inputText placeholder="Tytuł notatki" maxlength="40" value="#{editPostBB.post_title}" style="width:100%;">
+						<p:ajax event="blur" update="last_save" listener="#{editPostBB.saveTitle()}"/>
+					</p:inputText>
+				</div>
+			</div>
+			
+			<div class="ui-g-5" style="margin:0; padding:0;">
+				<div class="ui-inputgroup">
+				<p:selectOneMenu id="option" value="#{editPostBB.post_category}" style="width:100%;">
+						<f:selectItem itemLabel="Bez kategorii" itemValue=""/>
+						<f:selectItems value="#{postBB.load_categories()}" var="cat" itemLabel="#{cat.title}" itemValue="#{cat.id}" />
+						<p:ajax event="blur" update="last_save" listener="#{editPostBB.saveCategory()}"/>
+					</p:selectOneMenu>
+				</div>
+			</div>
+			
+			<div class="ui-g-2" style="margin:0; padding:0;">
+				<div class="ui-inputgroup">
+	                <p:selectOneMenu id="option2" value="#{editPostBB.post_share}" style="width:100%;">
+	                    <f:selectItem itemLabel="Publiczna" itemValue="1"/>
+	                    <f:selectItem itemLabel="Prywatna" itemValue="0"/>
+	                    <p:ajax event="blur" update="last_save" listener="#{editPostBB.saveShare()}"/>
+	                </p:selectOneMenu>
+	               </div>
+			</div>
+			
+		</div>
+		 
+		<p:inputTextarea value="#{editPostBB.post_content}" styleClass="notes" autoResize="false">
+			<p:ajax event="blur" update="last_save" listener="#{editPostBB.saveContent()}"/>
+		</p:inputTextarea>
+				
+		<div class="text-center">
+			<div>
+				<p:tag styleClass="mr-2" severity="warning">
+					Ostatnia edycja: <i class="pi pi-clock mr-5 ml-5"></i>
+					<h:outputText value="#{editPostBB.last_save}" id="last_save" >
+					    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+					</h:outputText>
+				</p:tag>
+				<div class="smalltxt">Notatka zapisuje się automatycznie po odkliknięciu pola treści.</div>
+			</div>
+			<div class="mt-10">
+				<p:button href="/user/posts.xhtml" value="Zakończ edycję" styleClass="rounded-button ui-button-danger" style="margin-left:15px" icon="pi pi-times" />
+				
+			</div>
+		</div>
+		
+		
+	</h:form>
+	
+</ui:composition>

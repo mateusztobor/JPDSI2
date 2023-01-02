@@ -20,7 +20,6 @@ public class Client implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private FacesContext fCtx = FacesContext.getCurrentInstance();
 	private HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(true);
-	@SuppressWarnings("unchecked")
 	private RemoteClient<User> r = RemoteClient.load(session);
 	
 	public User getClient() {
