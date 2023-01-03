@@ -145,6 +145,5 @@ public class PostBB {
 		return Redirect.here();
 	}
 	
-
 	
 }
